@@ -2,6 +2,8 @@
 import React from 'react';
 // FIX: Import MartialArtClass to explicitly type INITIAL_CLASSES
 import { Belt, PaymentStatus, ClassLevel, RiskLevel, TransactionType, View, MartialArtClass, AttendanceRecord, FeedbackRecord } from './types';
+
+export const assetPath = (relativePath: string) => new URL(relativePath, import.meta.env.BASE_URL).pathname;
 import { ChartBarIcon, UsersIcon, CalendarIcon, CurrencyDollarIcon, ShieldCheckIcon, PhotographIcon, UserCircleIcon, LogoutIcon } from './components/icons';
 
 const createAttendanceRecord = (studentId: string, daysAgo: number, present: boolean, hour: number = 18): { id: string; studentId: string; record: AttendanceRecord } => {
@@ -40,11 +42,11 @@ export const INSTRUCTORS = [
 ];
 
 export const INITIAL_STUDENTS = [
-    { id: '1', name: 'Ryu Hoshi', discipline: 'Karate', belt: Belt.Black, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: '/images/students/Ryu-Hoshi.png', joinDate: '2022-01-15T00:00:00.000Z' },
-    { id: '2', name: 'Chun-Li', discipline: 'Kung Fu', belt: Belt.Black, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: '/images/students/Chun-Li.png', joinDate: '2022-03-20T00:00:00.000Z' },
-    { id: '3', name: 'Ken Masters', discipline: 'Karate', belt: Belt.Brown, paymentStatus: PaymentStatus.Pending, riskLevel: RiskLevel.Medium, profilePicUrl: '/images/students/Ken-Masters.png', joinDate: '2023-05-10T00:00:00.000Z' },
-    { id: '4', name: 'Fei Long', discipline: 'Jeet Kune Do', belt: Belt.Green, paymentStatus: PaymentStatus.Overdue, riskLevel: RiskLevel.High, profilePicUrl: '/images/students/Fei-Long.png', joinDate: '2023-08-01T00:00:00.000Z' },
-    { id: '5', name: 'Sakura Kasugano', discipline: 'Karate', belt: Belt.Blue, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: '/images/students/Sakura-Kasugano.png', joinDate: '2023-11-22T00:00:00.000Z' },
+    { id: '1', name: 'Ryu Hoshi', discipline: 'Karate', belt: Belt.Black, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: assetPath('images/students/Ryu-Hoshi.png'), joinDate: '2022-01-15T00:00:00.000Z' },
+    { id: '2', name: 'Chun-Li', discipline: 'Kung Fu', belt: Belt.Black, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: assetPath('images/students/Chun-Li.png'), joinDate: '2022-03-20T00:00:00.000Z' },
+    { id: '3', name: 'Ken Masters', discipline: 'Karate', belt: Belt.Brown, paymentStatus: PaymentStatus.Pending, riskLevel: RiskLevel.Medium, profilePicUrl: assetPath('images/students/Ken-Masters.png'), joinDate: '2023-05-10T00:00:00.000Z' },
+    { id: '4', name: 'Fei Long', discipline: 'Jeet Kune Do', belt: Belt.Green, paymentStatus: PaymentStatus.Overdue, riskLevel: RiskLevel.High, profilePicUrl: assetPath('images/students/Fei-Long.png'), joinDate: '2023-08-01T00:00:00.000Z' },
+    { id: '5', name: 'Sakura Kasugano', discipline: 'Karate', belt: Belt.Blue, paymentStatus: PaymentStatus.Paid, riskLevel: RiskLevel.Low, profilePicUrl: assetPath('images/students/Sakura-Kasugano.png'), joinDate: '2023-11-22T00:00:00.000Z' },
 ];
 
 // FIX: Explicitly type INITIAL_CLASSES as MartialArtClass[] to ensure the 'day' property matches the required union type.
@@ -89,7 +91,7 @@ export const INITIAL_POSTS = [
 
 export const INITIAL_PROFILE = {
     name: "Academia Marcial SPARTA",
-    logoUrl: "/images/dojo/dojo-profile.png",
+    logoUrl: assetPath('images/dojo/dojo-profile.png'),
     contactEmail: "contacto@academiaartesmarciales.edu",
     contactPhone: "+1 (555) 123-4567",
     address: "123 Camino del Guerrero, Ciudad Marcial",

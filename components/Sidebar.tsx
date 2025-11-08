@@ -1,5 +1,5 @@
 import React from 'react';
-import { NAV_ITEMS } from '../constants';
+import { NAV_ITEMS, assetPath } from '../constants';
 import { LogoutIcon, XIcon } from './icons';
 import type { View } from '../types';
 import { useTheme } from '../hooks/useTheme';
@@ -15,6 +15,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isOpen, setIsOpen, onLogout, logoUrl }) => {
     const { theme } = useTheme();
+    const defaultLogo = assetPath('images/dojo/sidebar-logo.png');
+    const resolvedLogo = logoUrl || defaultLogo;
     
     const handleLinkClick = (view: View) => {
         setCurrentView(view);
@@ -36,11 +38,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isOpen, 
                                 : 'bg-light-bg border border-light-primary/40 shadow-light'
                             }`}>
                             <img
-                                src={logoUrl || '/images/dojo/sidebar-logo.png'}
+                                src={resolvedLogo}
                                 alt="Logo del Dojo"
                                 className="w-full h-full object-contain"
                                 onError={(event) => {
-                                    event.currentTarget.src = '/images/dojo/sidebar-logo.png';
+                                    event.currentTarget.src = defaultLogo;
                                     event.currentTarget.onerror = null;
                                 }}
                             />
