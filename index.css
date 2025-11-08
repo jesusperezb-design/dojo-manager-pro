@@ -1,0 +1,239 @@
+/* Transiciones globales */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Emergency protection removed. We now use CSS variables (in :root) and
+   scoped overrides under .light-theme. Avoid !important rules to prevent
+   accidental overrides of the dark appearance. */
+
+
+/* Tema claro - solo se aplica cuando la clase .light está presente */
+/* Global transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* ---------- Default (dark) theme variables ---------- */
+:root {
+    --bg-primary: #020617;       /* space-black */
+    --surface: #0F172A;          /* nebula-blue */
+    --accent: #00D8FF;           /* neon-blue */
+    --text-primary: #F8FAFC;     /* high-contrast-white */
+    --text-secondary: #94A3B8;   /* secondary-gray */
+    /* semantic colors for badges (dark defaults) */
+    --success-bg: rgba(16,185,129,0.12);
+    --success-text: #34D399;
+    --warning-bg: rgba(245,158,11,0.12);
+    --warning-text: #f59e0b;
+    --error-bg: rgba(239,68,68,0.12);
+    --error-text: #fb7185;
+}
+
+/* Keep dark scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+.dark ::-webkit-scrollbar-track { background: #0F172A; }
+.dark ::-webkit-scrollbar-thumb { background: #00D8FF40; border-radius: 4px; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #00D8FF60; }
+
+/* Utility mappings for classes the app uses (dark defaults) */
+.bg-space-black { background-color: var(--bg-primary); }
+.bg-nebula-blue { background-color: var(--surface); }
+.text-high-contrast-white { color: var(--text-primary); }
+.text-secondary-gray { color: var(--text-secondary); }
+
+/* ---------- Light theme (isolated) ---------- */
+/* Only active when <html> has the class .light-theme (useTheme adds this) */
+.light-theme {
+    --bg-primary: #FFFFFF;
+    --surface: #F8FAFC;      /* cards and surfaces */
+    --accent: #0EA5E9;       /* primary for light */
+    --text-primary: #0F172A; /* main text dark */
+    --text-secondary: #475569; /* slightly darker for better contrast */
+
+    /* semantic colors used below */
+    --success-bg: #DCFCE7;
+    --success-text: #166534;
+    --warning-bg: #FEF3C7;
+    --warning-text: #92400E;
+    --error-bg: #FEE2E2;
+    --error-text: #991B1B;
+    --info-bg: #DBEAFE;
+    --info-text: #1E40AF;
+}
+
+/* Light scrollbars when theme active */
+.light-theme ::-webkit-scrollbar-track { background: var(--surface); }
+.light-theme ::-webkit-scrollbar-thumb { background: var(--accent); opacity: 0.22; border-radius: 4px; }
+.light-theme ::-webkit-scrollbar-thumb:hover { opacity: 0.34; }
+
+/* Broad fallback: make most text utilities readable in light theme.
+   We override text-* utilities except for intentional accent colors
+   (emerald, rose, amber, yellow, purple, indigo, neon) so they keep
+   their semantic color. This covers remaining cases like numeric
+   counters, headings or labels that used utility classes and ended
+   up too pale in the light theme. */
+.light-theme [class*="text-"]:not([class*="text-emerald"]):not([class*="text-rose"]):not([class*="text-amber"]):not([class*="text-yellow"]):not([class*="text-purple"]):not([class*="text-indigo"]):not([class*="text-neon"]):not([class*="text-neon-blue"]) {
+    color: var(--text-primary) !important;
+    --tw-text-opacity: 1 !important;
+}
+
+/* Map existing classes to light-theme values where appropriate */
+.light-theme .bg-space-black { background-color: var(--bg-primary); }
+.light-theme .bg-nebula-blue { background-color: var(--surface); }
+.light-theme .text-high-contrast-white { color: var(--text-primary); }
+.light-theme .text-secondary-gray { color: var(--text-secondary); }
+.light-theme .border-neon-blue\/20 { border-color: rgba(14,165,233,0.12); }
+
+/* Cards and panels: make them light surfaces by default */
+.light-theme .bg-nebula-blue.card,
+.light-theme div[class*="bg-nebula-blue"] {
+    background-color: var(--surface);
+    border: 1px solid rgba(14,165,233,0.06);
+    box-shadow: 0 1px 3px rgba(2,6,23,0.04);
+}
+
+/* Some components use semi-opaque dark variants (eg. bg-space-black/60) to create
+     a "dark card" visual; in light-theme we want those to remain distinguishable AND
+     show white text inside them. Target classes that include "bg-space-black" */
+.light-theme [class*="bg-space-black"] {
+    background-color: #374151; /* gray-700 */
+    color: #ffffff;
+}
+.light-theme [class*="bg-space-black"] .text-secondary-gray {
+    color: rgba(255,255,255,0.85);
+}
+
+/* Badges (rounded-full) should be dark text on light backgrounds by default */
+.light-theme .rounded-full { color: var(--text-primary); }
+/* But if a badge lives inside a dark small-card ([class*="bg-space-black"]) make it white */
+.light-theme [class*="bg-space-black"] .rounded-full { color: #ffffff; }
+
+/* Payment & status badges: map common utility bg-colors to clearer light variants */
+.light-theme .bg-emerald-500 { background-color: var(--success-bg); color: var(--success-text); border: 1px solid #86efac; }
+.light-theme .bg-amber-500  { background-color: var(--warning-bg); color: var(--warning-text); border: 1px solid #fcd34d; }
+.light-theme .bg-rose-500   { background-color: var(--error-bg);   color: var(--error-text);   border: 1px solid #fca5a5; }
+
+/* Attendance badges (rounded small) */
+.light-theme .bg-emerald-500\/20 { background-color: var(--success-bg); color: var(--success-text); }
+.light-theme .bg-rose-500\/20    { background-color: var(--error-bg);   color: var(--error-text); }
+
+/* Action buttons inside alert cards: lighter surface with colored border */
+.light-theme button[class*="bg-neon-blue"] { background-color: #0369a1; color: white; }
+.light-theme button[class*="bg-neon-blue/15"] { background-color: rgba(14,165,233,0.08); color: #0369a1; border: 1px solid rgba(14,165,233,0.12); }
+.light-theme button[class*="bg-space-black/40"] { background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.light-theme button[class*="bg-emerald"] { background-color: var(--success-bg); color: var(--success-text); border: 1px solid #86efac; }
+
+/* Ensure text inside alert panels is readable (dark text on light panel, white on dark small-cards) */
+.light-theme .bg-nebula-blue, .light-theme .bg-nebula-blue * { color: var(--text-primary); }
+.light-theme [class*="bg-space-black"] , .light-theme [class*="bg-space-black"] * { color: #ffffff; }
+
+/* Improve contrast on table header and rows */
+.light-theme thead { background-color: #ffffff; border-bottom: 2px solid rgba(14,165,233,0.06); }
+.light-theme tbody tr:hover { background-color: #f1f5f9; }
+
+/* Keep hover/interaction effects subtle */
+.light-theme button { transition: transform 120ms ease, box-shadow 120ms ease; }
+.light-theme button:hover { transform: translateY(-1px); }
+
+/* Small helpers for attendance percent badges that use utility text classes */
+.light-theme .text-rose-300 { color: var(--error-text); font-weight: 600; }
+.light-theme .text-emerald-300 { color: var(--success-text); font-weight: 600; }
+
+/* Map common accent text utility classes to readable colors in light theme.
+   We only change text color mapping under .light-theme so the dark theme
+   remains untouched. This covers 200/300/400 variants used across components. */
+.light-theme .text-emerald-200, .light-theme .text-emerald-300, .light-theme .text-emerald-400 {
+    color: var(--success-text) !important;
+    font-weight: 600;
+}
+.light-theme .text-rose-200, .light-theme .text-rose-300, .light-theme .text-rose-400 {
+    color: var(--error-text) !important;
+    font-weight: 600;
+}
+.light-theme .text-amber-300, .light-theme .text-amber-400, .light-theme .text-yellow-300 {
+    color: var(--warning-text) !important;
+    font-weight: 600;
+}
+.light-theme .text-purple-200, .light-theme .text-indigo-200 {
+    color: #6b21a8 !important; /* darker purple for readability */
+    font-weight: 600;
+}
+.light-theme .text-neon-blue, .light-theme .text-neon-blue\/80, .light-theme .text-neon-blue\/70 {
+    color: var(--accent) !important;
+    font-weight: 600;
+}
+
+/* Ensure Tailwind opacity suffixes (eg. text-high-contrast-white/80) also map to
+   readable colors in light theme. We target class name fragments so both
+   base and /NN variants are covered. Scoped under .light-theme to avoid
+   affecting the dark default. */
+.light-theme [class*="text-high-contrast-white"] {
+    color: var(--text-primary) !important;
+    --tw-text-opacity: 1 !important;
+}
+.light-theme [class*="text-secondary-gray"] {
+    color: var(--text-secondary) !important;
+    --tw-text-opacity: 1 !important;
+}
+
+/* ---------------- Semantic badge classes (use these in JSX) ---------------- */
+/* These are theme-aware through CSS variables defined in :root and .light-theme */
+.badge-paid { background-color: var(--success-bg); color: var(--success-text); border: 1px solid rgba(0,0,0,0.06); }
+.badge-pending { background-color: var(--warning-bg); color: var(--warning-text); border: 1px solid rgba(0,0,0,0.06); }
+.badge-overdue { background-color: var(--error-bg); color: var(--error-text); border: 1px solid rgba(0,0,0,0.06); }
+
+.attendance-high { background-color: var(--success-bg); color: var(--success-text); }
+.attendance-medium { background-color: var(--warning-bg); color: var(--warning-text); }
+.attendance-low { background-color: var(--error-bg); color: var(--error-text); }
+.attendance-none { background-color: transparent; color: var(--text-secondary); }
+
+/* Keep badges rounded and sizing consistent with existing UI utilities */
+.badge-paid, .badge-pending, .badge-overdue, .attendance-high, .attendance-medium, .attendance-low, .attendance-none {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+/* Semantic button helpers that follow the theme variables. Use these alongside
+   existing Tailwind utilities to keep dark theme unchanged while allowing the
+   light theme to map to readable colors via CSS variables. */
+.btn-emerald {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid rgba(134, 239, 172, 0.3);
+}
+.btn-emerald:hover { filter: brightness(0.95); }
+
+.btn-rose {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid rgba(252, 165, 165, 0.3);
+}
+.btn-rose:hover { filter: brightness(0.95); }
+
+.btn-amber {
+    background-color: var(--warning-bg);
+    color: var(--warning-text);
+    border: 1px solid rgba(252, 211, 77, 0.25);
+}
+.btn-amber:hover { filter: brightness(0.95); }
+
+.btn-neon {
+    background-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,216,255,0.12);
+    border: 1px solid rgba(0,216,255,0.12);
+}
+.btn-neon:hover { filter: brightness(0.95); }
+
+/* small helper for icon-only rounded buttons */
+.btn-circle { display:inline-flex; align-items:center; justify-content:center; border-radius:9999px; }
+
+/* end of index.css */
