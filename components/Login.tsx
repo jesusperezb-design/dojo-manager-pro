@@ -28,8 +28,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <div className="min-h-screen flex items-center justify-center bg-space-black p-4">
             <div className="w-full max-w-md bg-nebula-blue border border-neon-blue/30 rounded-lg shadow-neon p-8">
                 <div className="flex flex-col items-center mb-6">
-                        <div className="w-32 h-32 rounded-xl border border-neon-blue/40 shadow-neon mb-4 overflow-hidden bg-space-black flex items-center justify-center">
-                            <img
+                    <div className="w-32 h-32 rounded-xl border border-neon-blue/40 shadow-neon mb-4 overflow-hidden bg-space-black flex items-center justify-center">
+                        <img
                             src={loginLogo}
                             alt="Logo del Dojo"
                             className="w-full h-full object-contain"

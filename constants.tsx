@@ -2,9 +2,9 @@
 import React from 'react';
 // FIX: Import MartialArtClass to explicitly type INITIAL_CLASSES
 import { Belt, PaymentStatus, ClassLevel, RiskLevel, TransactionType, View, MartialArtClass, AttendanceRecord, FeedbackRecord } from './types';
+import { ChartBarIcon, UsersIcon, CalendarIcon, CurrencyDollarIcon, ShieldCheckIcon, PhotographIcon, UserCircleIcon, LogoutIcon } from './components/icons';
 
 export const assetPath = (relativePath: string) => new URL(relativePath, import.meta.env.BASE_URL).pathname;
-import { ChartBarIcon, UsersIcon, CalendarIcon, CurrencyDollarIcon, ShieldCheckIcon, PhotographIcon, UserCircleIcon, LogoutIcon } from './components/icons';
 
 const createAttendanceRecord = (studentId: string, daysAgo: number, present: boolean, hour: number = 18): { id: string; studentId: string; record: AttendanceRecord } => {
     const base = new Date();
